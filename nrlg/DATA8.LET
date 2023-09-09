@@ -1,0 +1,113 @@
+Hello All!                                                                 
+                                                                        
+Im capture this text of the Vsum 405.                                      
+                                                                           
+The "MORDOR" virus is write for my in July of 1993.                        
+The P.H. coments is very-shit.                                             
+                                                                           
+Look this!                                                                 
+                                                                           
+ 컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴캑Mordor.1110쳐컴컴컴컴컴컴컴컴컴컴컴컴컴�
+  Virus Name:  Mordor.1110                                                 
+  Aliases:     Mordor, Paola.1110                                          
+  V Status:    New                                                         
+  Discovered:  February, 1994                                              
+  Symptoms:    .COM file growth; Master Boot Record on hard disk altered;  
+               decrease in total system & available free memory; message;  
+               system hard disk corruption; disables VSAFE & VWATCH;       
+               installed TSRs and/or drivers may no longer function;       
+               SCSI drives and other SCSI devices may be disabled;         
+               possible interference with video display                    
+  Origin:      Unknown                                                     
+  Eff Length:  1,110 Bytes                                                 
+  Type Code:   PRshC - Parasitic Resident .COM & MBR Infector              
+  Detection Method:  F-Prot 2.10g+, VNet 2.11a+, AVTK 6.64+, IBMAV 1.05+,  
+                     AVTK/N 6.64+, NProt 1.25+                             
+  Removal Instructions:  Delete infected files and replace MBR             
+                                                                           
+  General Comments:                                                        
+        The Mordor.1110 virus was received in February, 1994.  Its origin  
+        is unknown.  Mordor.1110 is a memory resident infector of the      
+        system hard disk master boot record (the sector containing the     
+        hard disk partition table) and .COM programs other than COMMAND.COM
+        It is destructive when it activates.                               
+                                                                           
+        When the first Mordor.1110 infected program is executed, this virus
+        will install itself memory resident as a low system memory TSR of  
+        1,440 bytes, hooking interrupt 21.  Also at this time, the virus   
+        will ifect the system hard disk master boot record sector if it was
+FAKE#1  not previously infected.  Later, booting from the infected system  
+FAKE#2  hard disk will result in the virus becoming memory at the top of   
+        system memory but below the 640K DOS boundary.                     
+                                                                           
+        Once the Mordor.1110 virus is memory resident, it will infect .COM 
+        programs other than COMMAND.COM when they are executed.  Infected  
+        programs will have a file length increase of 1,110 bytes.  The     
+        virus encrypts the host program, as well as the viral code, so its 
+FAKE#3  relative position within the file isnt important to a normal system
+        user.  The file's date and time in the DOS disk directory listing  
+        will not be altered.The following text strings are encrypted within
+        infected programs:                                                 
+                                                                           
+                                                                           
+              "Virus MORDOR v1.0"                                          
+              "Escrito por AZRAEL"                                         
+              "Un Anillo para gobernarlos a todos."                        
+FAKE #4       "Un Anillo para en contrarlos"                               
+              "un Anillo para atraerlos a todos y atarlos en las tinieblas"
+              "en la Tierra de Mordor donde se extienden las sombras"      
+              "dedicado a PAOLA HASBANI"                                   
+              "Saludos A MURDOCK, MALVINAS, PatoruzU, KOHNTARK y           
+               FIRECRAKER"                                                 
+                                                                           
+        This virus may have impact the operation of the system. It contains
+        code to disable the VSAFE and VWATCH anti-viral programs, and may  
+FAKE #5 also render disabled or useless some installed device drivers or   
+FAKE #6 memory resident programs.  It also may disable SCSI devices, suchas
+FAKE #7 hard disks, due to it overwriting their driver in memory.  Video   
+        display output may also be impacted by the virus.                  
+                                                                           
+        Mordor.1110 has a two part activation mechanism, though the first  
+        event does not need to occur for the destructive second activation 
+        event to occur.  On March 31st of any year, the virus will display 
+        the message contained in the text strings above.  On any day in    
+FAKE #8 April, the virus will overwrite the first 18 cylinders (0 - 17)    
+        of the system hard disk with characters from system memory.        
+                                                                           
+----------------------------------------------------------------------     
+                           END OF CAPTURE                                  
+----------------------------------------------------------------------     
+                                                                           
+                              FAKE'S DOC                                   
+                                                                           
+FAKE #1 The virus infect MBR every execute a infected file (not check      
+        previous infeccion in MBR.                                         
+                                                                           
+FAKE #2 The MBR infector is only a MBR BOMB (look nuke_the_world mail     
+        Title: "My little MBR Bomb" including the MBR BOMB source )        
+        not remain resident - not loading to memory only check the         
+        date (month) if month = 4 "trash" the disk but (if month not       
+        equal to 4) continuous form normal boot.                           
+                                                                           
+FAKE #3 whoooooooooooooooooooooooooooooo??????????                         
+                                                                           
+FAKE #4 wrong write                                                        
+                                                                           
+FAKE #5--->                                                                
+FAKE #6-------> In my test thoses problems not exist..                     
+FAKE #7--->     (P.H. runnig the virus in a COMODORE 64?)                  
+                                                                           
+FAKE #8 The destructive rutine is a infinite loop and write                
+        FFFF(Hex) sectors                                                  
+                                                                           
+---------------------------------------------------------------------------
+                                                                           
+I'M terminate the "MORDOR [NuKE] 2.0" virus (the new version) in           
+March of 1994 the new version is DIR and MEMORY stealth.                   
+                                                                           
+When P.H. obtain this new version who invent?? IS A .DOC infector???       
+                                                                           
+Look the Vsum.. is a very pretty joke !!                                   
+                                                                           
+                                             AZRAEL (c) [NuKE]             
+                                                                           

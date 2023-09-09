@@ -1,0 +1,22 @@
+;---------------------------------
+action:                          ;Call label      
+MOV AH,2AH                       ;        
+INT 21H                          ;get date           
+CMP Dl,byte ptr cs:[action_dia+bp]  ;is equal to my day?                 
+JE  cont                         ;nop! fuck ret          
+cmp byte ptr cs:[action_dia+bp],32  ;
+jne no_day                       ;
+cont:                            ; 
+cmp dh,byte ptr cs:[action_mes+bp]  ;is equal to my month?            
+je set                           ;
+cmp byte ptr cs:[action_mes+bp],13  ;
+jne NO_DAY                       ;nop! fuck ret           
+set:                             ; 
+mov AH,9                         ;yeah!!          
+MOV DX,OFFSET PAO                ;print my text!         
+INT 21H                          ;now!   
+INT 20H                          ;an finsh te program        
+NO_DAY:                          ;label to incorrect date              
+ret                              ;return from call 
+;---------------------------------
+

